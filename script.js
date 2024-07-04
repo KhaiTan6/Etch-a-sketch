@@ -1,10 +1,12 @@
 const container = document.getElementById('container');
 const resizeButton = document.getElementById('resizeButton');
+const resetButton = document.getElementById('resetButton');
+let currentGridSize = 16;
 
 function createGrid(size){
     container.innerHTML = '';
     const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+    //const containerHeight = container.clientHeight;
     const itemSize = containerWidth / size ;
 
     for (let i = 0; i < size * size; i++) {
@@ -29,12 +31,18 @@ function resizeGrid(){
         alert('Please enter a number between 1 and 100');
         return;
     }
+    currentGridSize = newSize;
     createGrid(newSize);
 }
 
-createGrid(16);
+function resetGrid(){
+    createGrid(currentGridSize);
+}
+
+createGrid(currentGridSize);
 
 resizeButton.addEventListener('click', resizeGrid);
+resetButton.addEventListener('click', resetGrid);
 
 window.addEventListener('resize', () => {
     const currentGridSize = Math.sqrt(container.children.length);
