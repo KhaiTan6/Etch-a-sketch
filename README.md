@@ -1,4 +1,5 @@
 # Etch-a-sketch
+Live preview link: https://khaitan6.github.io/Etch-a-sketch/
 
 ## Description
 This project is a simple web-based sketchpad inspired by the classic Etch-A-Sketch toy. It allows users to draw on a grid by hovering over the squares. Users can resize the grid and reset it while maintaining the current grid size.
@@ -9,3 +10,5 @@ This project is a simple web-based sketchpad inspired by the classic Etch-A-Sket
 - Grid squares change color when hovered over.
 - Responsive design ensures the grid adjusts to the window size.
 - Reset button to clear the grid while maintaining the current grid size.
+
+  
