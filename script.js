@@ -4,6 +4,13 @@ const resetButton = document.getElementById('resetButton');
 let currentGridSize = 16;
 let isMouseDown = false;
 
+function getRandomColor(){
+    const r = Math.floor(Math.random() * 256); // Random between 0 and 255
+    const g = Math.floor(Math.random() * 256); // Random between 0 and 255
+    const b = Math.floor(Math.random() * 256); // Random between 0 and 255
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 function createGrid(size){
     container.innerHTML = '';
     const containerWidth = container.clientWidth;
@@ -16,16 +23,16 @@ function createGrid(size){
         gridItem.style.width = `${itemSize}px`;
         gridItem.style.height = `${itemSize}px`;
 
-        gridItem.addEventListener('mousedown', () => {
+        gridItem.addEventListener('mousedown', (event) => {
             if (event.button === 0) {
-                gridItem.style.backgroundColor = 'black';
+                gridItem.style.backgroundColor = getRandomColor();
                 isMouseDown = true;
             }
         });
 
         gridItem.addEventListener('mouseover', () => {
             if (isMouseDown) { // Color the square only if the mouse button is pressed
-                gridItem.style.backgroundColor = 'black';
+                gridItem.style.backgroundColor = getRandomColor();
             }
         });
 
@@ -49,10 +56,13 @@ function createGrid(size){
 
 function resizeGrid(){
     let newSize = prompt('Enter the number of squares per side for new grid (e.g., 16 for 16x16 grid)', 16);
-    newSize = parseInt(newSize);
+    
     if (newSize === null) {
         return;
     }
+    
+    newSize = parseInt(newSize);
+
     if (newSize < 1 || newSize > 100) {
         alert('Please enter a number between 1 and 100');
         return;
