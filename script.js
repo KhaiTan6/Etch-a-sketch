@@ -11,6 +11,16 @@ function getRandomColor(){
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+function darkenSquare(square){
+    let currentOpacity = parseFloat(square.getAttribute('data-opacity'));
+    if (currentOpacity < 1) {
+        currentOpacity += 0.1;
+        square.setAttribute('data-opacity', currentOpacity.toFixed(1));
+        square.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity.toFixed(1)})`;
+        
+    }
+}
+
 function createGrid(size){
     container.innerHTML = '';
     const containerWidth = container.clientWidth;
@@ -22,23 +32,28 @@ function createGrid(size){
         gridItem.classList.add('grid-item');
         gridItem.style.width = `${itemSize}px`;
         gridItem.style.height = `${itemSize}px`;
+        gridItem.setAttribute('data-opacity', '0');
+        gridItem.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 
         gridItem.addEventListener('mousedown', (event) => {
             if (event.button === 0) {
-                gridItem.style.backgroundColor = getRandomColor();
+                darkenSquare(gridItem);
+                //gridItem.style.backgroundColor = getRandomColor(); // swap this line with the one above to get random colors
                 isMouseDown = true;
             }
         });
 
         gridItem.addEventListener('mouseover', () => {
             if (isMouseDown) { // Color the square only if the mouse button is pressed
-                gridItem.style.backgroundColor = getRandomColor();
+                darkenSquare(gridItem);
+                //gridItem.style.backgroundColor = getRandomColor(); //swap this line with the one above to get random colors
             }
         });
 
         gridItem.addEventListener('contextmenu', (event) => {
             event.preventDefault(); // Prevent the context menu from appearing
-            gridItem.style.backgroundColor = ''; // Reset the background color on right click
+            gridItem.setAttribute('data-opacity', '0');
+            gridItem.style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Reset the background color on right click
         });
 
         container.appendChild(gridItem);
